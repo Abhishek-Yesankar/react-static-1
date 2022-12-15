@@ -6,7 +6,6 @@ import {
 import "./index.css";
 import App from "./App";
 
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <a className="skip-to-content" href="#main">

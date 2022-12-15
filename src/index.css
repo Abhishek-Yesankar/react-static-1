@@ -10,6 +10,7 @@
 *{
   font-family: 'Open Sans', sans-serif;
 }
+/* skip to content */
 .skip-to-content{
   position: absolute;
   left: -100vw;
@@ -90,145 +91,110 @@
     background: var( --clr-4 );
   }
 }
-#dropdown-container{
+#menu-tile-container{
   width: 93vw;
   max-width: 480px;
 }
-
-.dropdown{
+.menu-tile{
   display: flex;
   flex-wrap: wrap;
   /* width: calc(120px * 4); */
   width: 100%;
 }
-.dropdown > .drop {
+.menu-tile > .tile {
  width: 25%;
 }
-.dropdown .drop{
+.menu-tile .tile{
   transition: all 300ms ease-in-out;
   background: #fff;
   opacity: 0;
 }
-.dropdown .drop:nth-child(1){
-  transition-delay: .3s;
-}
-.dropdown .drop:nth-child(2){
-  transition-delay: .4s;
-}
-.dropdown .drop:nth-child(3){
-  transition-delay: .5s;
-}
-.dropdown .drop:nth-child(4){
+
+.menu-tile .tile:nth-child(4){
   transition-delay: .6s;
 }
-.dropdown .drop:nth-child(5){
-  transition-delay: .2s;
-}
-.dropdown .drop:nth-child(6){
-  transition-delay: .3s;
-}
-.dropdown .drop:nth-child(7){
-  transition-delay: .4s;
-}
-.dropdown .drop:nth-child(8){
+.menu-tile .tile:nth-child(3),
+.menu-tile .tile:nth-child(8){
   transition-delay: .5s;
 }
-.dropdown .drop:nth-child(9){
-  transition-delay: .1s;
-}
-.dropdown .drop:nth-child(10){
-  transition-delay: .2s;
-}
-.dropdown .drop:nth-child(11){
-  transition-delay: .3s;
-}
-.dropdown .drop:nth-child(12){
+.menu-tile .tile:nth-child(2),
+.menu-tile .tile:nth-child(7),
+.menu-tile .tile:nth-child(12){
   transition-delay: .4s;
 }
-.dropdown .drop:nth-child(13){
-  transition-delay: .0s;
+.menu-tile .tile:nth-child(1),
+.menu-tile .tile:nth-child(6),
+.menu-tile .tile:nth-child(11),
+.menu-tile .tile:nth-child(16){
+  transition-delay: .3s;
 }
-.dropdown .drop:nth-child(14){
-  transition-delay: .1s;
-}
-.dropdown .drop:nth-child(15){
+.menu-tile .tile:nth-child(5),
+.menu-tile .tile:nth-child(10),
+.menu-tile .tile:nth-child(15){
   transition-delay: .2s;
 }
-.dropdown .drop:nth-child(16){
-  transition-delay: .3s;
+.menu-tile .tile:nth-child(9),
+.menu-tile .tile:nth-child(14){
+  transition-delay: .1s;
+}
+.menu-tile .tile:nth-child(13){
+  transition-delay: .0s;
 }
 
-#dropdown-container.active .dropdown .drop:nth-child(1){
-  transition-delay: .3s;
+#menu-tile-container.active .menu-tile .tile{
+  opacity: 1;
 }
-#dropdown-container.active .dropdown .drop:nth-child(2){
-  transition-delay: .2s;
-}
-#dropdown-container.active .dropdown .drop:nth-child(3){
-  transition-delay: .1s;
-}
-#dropdown-container.active .dropdown .drop:nth-child(4){
-  transition-delay: .0s;
-}
-#dropdown-container.active .dropdown .drop:nth-child(5){
-  transition-delay: .4s;
-}
-#dropdown-container.active .dropdown .drop:nth-child(6){
-  transition-delay: .3s;
-}
-#dropdown-container.active .dropdown .drop:nth-child(7){
-  transition-delay: .2s;
-}
-#dropdown-container.active .dropdown .drop:nth-child(8){
-  transition-delay: .1s;
-}
-#dropdown-container.active .dropdown .drop:nth-child(9){
-  transition-delay: .5s;
-}
-#dropdown-container.active .dropdown .drop:nth-child(10){
-  transition-delay: .4s;
-}
-#dropdown-container.active .dropdown .drop:nth-child(11){
-  transition-delay: .3s;
-}
-#dropdown-container.active .dropdown .drop:nth-child(12){
-  transition-delay: .2s;
-}
-#dropdown-container.active .dropdown .drop:nth-child(13){
+#menu-tile-container.active .menu-tile .tile:nth-child(13){
   transition-delay: .6s;
 }
-#dropdown-container.active .dropdown .drop:nth-child(14){
+#menu-tile-container.active .menu-tile .tile:nth-child(9),
+#menu-tile-container.active .menu-tile .tile:nth-child(14){
   transition-delay: .5s;
 }
-#dropdown-container.active .dropdown .drop:nth-child(15){
+#menu-tile-container.active .menu-tile .tile:nth-child(5),
+#menu-tile-container.active .menu-tile .tile:nth-child(10),
+#menu-tile-container.active .menu-tile .tile:nth-child(15){
   transition-delay: .4s;
 }
-#dropdown-container.active .dropdown .drop:nth-child(16){
+#menu-tile-container.active .menu-tile .tile:nth-child(1),
+#menu-tile-container.active .menu-tile .tile:nth-child(6),
+#menu-tile-container.active .menu-tile .tile:nth-child(11),
+#menu-tile-container.active .menu-tile .tile:nth-child(16){
   transition-delay: .3s;
 }
-#dropdown-container.active .dropdown .drop{
-  opacity: 1;
+#menu-tile-container.active .menu-tile .tile:nth-child(2),
+#menu-tile-container.active .menu-tile .tile:nth-child(7),
+#menu-tile-container.active .menu-tile .tile:nth-child(12){
+  transition-delay: .2s;
+}
+#menu-tile-container.active .menu-tile .tile:nth-child(3),
+#menu-tile-container.active .menu-tile .tile:nth-child(8){
+  transition-delay: .1s;
+}
+
+#menu-tile-container.active .menu-tile .tile:nth-child(4){
+  transition-delay: .0s;
 }
 #menu-container{
   opacity: 0;
   transition: all 300ms ease-in-out;
 }
-#dropdown-container.active #menu-container{
+#menu-tile-container.active #menu-container{
   opacity: 1;
   transition-delay: .6s;
 }
 
-/* backdrop */
+/* backtile */
 #trail.active button,
 #trail.active a,
-#dropdown-container.active button,
-#dropdown-container.active a{
+#menu-tile-container.active button,
+#menu-tile-container.active a{
   cursor: default;
 }
 #trail.active button,
 #trail.active a,
-#dropdown-container.active button,
-#dropdown-container.active a{
+#menu-tile-container.active button,
+#menu-tile-container.active a{
   cursor: pointer;
 }
 #trail.active{

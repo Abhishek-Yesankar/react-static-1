@@ -1,12 +1,12 @@
-import { MouseEvent, useState, useRef, RefObject, MouseEventHandler } from "react";
+import { MouseEvent, useState, useRef, RefObject } from "react";
 import { Link } from 'react-router-dom';
 import { RxCross2 } from 'react-icons/rx';
 import FocusTrap from "focus-trap-react";
 
-const drop:any[] = [];
+const tile:any[] = [];
 
 for( let i = 0; i < 16; i++ ) {
-	drop.push( <div className="drop" key={i} /> );
+	tile.push( <div className="tile" key={i} /> );
 }
 
 export default function Nav( props: any ) {
@@ -51,9 +51,9 @@ export default function Nav( props: any ) {
 			<div id="trail" onClick={toggleMenu} onMouseMove={enterTrail} onMouseLeave={existTrail} aria-hidden="true" className={`fixed inset-0 transition-all duration-300 ease-in bg-black/70 opacity-0${isMenuOpen ? " active" : " invisible"}`}>
 				<button id="trailer" className="absolute text-black text-3xl flex justify-center items-center" aria-label="close menu" ref={trailer}>{<RxCross2 />}</button>
 			</div>
-			<div id="dropdown-container" className={`absolute right-[-5px] top-[-20px] md:top-[-40px] md:right-[-25px] lg:right[-40px] pt-28 px-12 md:px-20 pb-12${isMenuOpen ? " active" : " invisible"}`}>
-				<div className={`dropdown absolute right-0 top-0 h-full`}>	
-					{drop}
+			<div id="menu-tile-container" className={`absolute right-[-5px] top-[-20px] md:top-[-40px] md:right-[-25px] lg:right[-40px] pt-28 px-12 md:px-20 pb-12${isMenuOpen ? " active" : " invisible"}`}>
+				<div className={`menu-tile absolute right-0 top-0 h-full`}>	
+					{tile}
 				</div>
 				<div id="menu-container" className="relative z-10 text-black">
 					<ul className="text-4xl md:text-5xl font-medium space-y-5 pb-10 border-b border-gray-300">
