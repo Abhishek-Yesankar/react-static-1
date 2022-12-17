@@ -5,6 +5,7 @@ import Header from "./components/Navigation/Header";
 import Loading from './components/Loader/Loading';
 import Work from './pages/Work';
 import About from './pages/About';
+import Home from './pages/Home';
 import { motion } from 'framer-motion';
 let previousPath: any;
 
@@ -47,11 +48,12 @@ export default function App() {
 			  		initial={{opacity: 0}}
 			  		animate={{opacity: 1}}
 			  		exit={{opacity: 0}}
-			  		transition={{duration: 2,}}
+			  		transition={{duration: 2, delay: 1}}
  				>
 				  	<Routes location={location} key={location.pathname}>
-						<Route path="/" element={<Work />}/>
+						<Route path="/" element={<Home />}/>
 						<Route path="/about" element={<About />}/>
+						<Route path="/work" element={<Work />}/>
 				 	</Routes>
 				 	<Outlet />
 			  	</motion.div>
