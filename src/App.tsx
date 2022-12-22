@@ -14,6 +14,8 @@ export default function App() {
   	const location = useLocation();
 
   	useEffect( () => {
+		addLoading();
+
       if( previousPath && previousPath !== location.pathname )  {
 			previousPath = location.pathname;
 
@@ -48,7 +50,7 @@ export default function App() {
 			  		initial={{opacity: 0}}
 			  		animate={{opacity: 1}}
 			  		exit={{opacity: 0}}
-			  		transition={{duration: 2, delay: 1}}
+			  		transition={{duration: 2.2, delay: 1}}
  				>
 				  	<Routes location={location} key={location.pathname}>
 						<Route path="/" element={<Home />}/>
