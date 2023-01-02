@@ -7,49 +7,52 @@ import { gsap } from 'gsap';
 const heroPixelRow = 7;
 const heroPixelCol = ( heroPixelRow * 2 ) * heroPixelRow;
 
-let pixel: JSX.Element[] = [];
+const pixel: JSX.Element[] = [];
 for( let col = 0; col < heroPixelCol; col++ ) pixel.push( <div key={col} className="pixel bg-neutral-900"/> );
 
-function startPixelAnimation( el: HTMLElement )  {
-   const pixels = el?.querySelectorAll( '.pixel' ) as NodeListOf<HTMLElement>;
-   if( !pixels ) return;
-
-   pixels.forEach( ( item, i ) => {
-      gsap.fromTo( item, { opacity: .2, }, { opacity: .5, repeat: -1, delay: gsap.utils.random( 1, i ) , yoyo: true, duration: 1.5 } );
-   });
-}
-
 /** Animated Text */
-const animateText = [
-   [ 'E', 'n', 'e', 'r', 'g', 'y' ],
-   [ 'B', 'e', 'a', 'u', 't', 'y' ],
-   [ 'C', 'l', 'a', 'r', 'i', 't', 'y' ],
-   [ 'C', 'r', 'e', 'a', 't', 'i', 'v', 'i', 't', 'y' ],
-]
-const energy: JSX.Element[] = [];
+const headings = [
+   'Energy',
+   'Beauty',
+   'Clarity',
+   'Creativity',
+];
+const animatedHeadings: JSX.Element[] = [];
 
-for( let i = 0; i < animateText.length; i++ ) {
-   energy.push( <span key={i} className="inline-block animate-container">
-         { animateText[i].map( ( text, k ) => <span key={k}>{text}</span> ) }
+for( let i = 0; i < headings.length; i++ ) {
+   animatedHeadings.push(
+      <span key={i} style={{ position: `${( i !== 0 ) ? 'absolute': 'static'}`}} className="inline-block animate-container" aria-label={headings[i]}>
+         { headings[i].split('').map( ( text, k ) => <span className="inline-block" aria-hidden="true" key={k}>{text}</span> ) }
       </span> );
 }
 
 export default function Home()  {
    const pixelContainer = useRef<any>();
-   const textAnimationContainer = useRef<any>();
+   const headingAnimationContainer = useRef<any>();
 
    useEffect( () => {
+      const gsapCtx = gsap.context( () => {
+         const gsapTimeline = gsap.timeline();
+         gsapTimeline.repeat( -1 );
+         const txt = headingAnimationContainer.current.querySelectorAll( '.animate-container' );
+         const delay = 3;
 
-   const gsapCtx = gsap.context( () => {
-      gsap.fromTo(".text .animate-container", { y: '-30px' }, { y: 0, duration: 1 });  
-      gsap.fromTo(".text .animate-container span", { y: '-60px', opacity: 0 }, { y: 0, opacity: 1, stagger: .1, duration: .3, delay: 1 });  
-   }, textAnimationContainer);
+         txt.forEach( ( item: HTMLElement ) => {
+            gsapTimeline.fromTo( item.querySelectorAll( 'span' ), { y: '-100%', opacity: 0, }, { y: 0, opacity: 1, stagger: .1, duration: .6, repeat: 1, yoyo: true, delay: -.6, repeatDelay: ( delay / 2 ) - .6, ease: "circ.out" });
+         });
 
-   return () => {
-      startPixelAnimation( pixelContainer.current );
-      gsapCtx.revert();
-   }
+         const pixels = pixelContainer.current?.querySelectorAll( '.pixel' ) as NodeListOf<HTMLElement>;
+         if( !pixels ) return;
 
+         pixels.forEach( ( item, i ) => {
+            gsap.fromTo( item, { opacity: .2, }, { opacity: .5, repeat: -1, delay: gsap.utils.random( 1, i ), yoyo: true, duration: 1.5 } );
+         });
+
+      }, [headingAnimationContainer, pixelContainer] );
+
+      return () => {
+         gsapCtx.revert();
+      }
    }, []);
 
    return(
@@ -57,12 +60,17 @@ export default function Home()  {
          <Container className="px-6 md:px-12">
             <div className="relative h-[700px] bg-cover bg-no-repeat bg-center flex items-end" 
             style={{ backgroundImage: `url(${heroImage})` }}>
-               <div className={`absolute bg-neutral-900 bg-opacity-50 inset-0 grid grid-cols-[repeat(14,1fr)] grid-rows-[repeat(7,1fr)]`} 
+               <div className={`absolute bg-neutral-900 bg-opacity-40 inset-0 grid grid-cols-[repeat(14,1fr)] grid-rows-[repeat(7,1fr)]`} 
                ref={pixelContainer}>
                { pixel }
                </div>
-               <div className="relative z-10 flex-grow text-center">
-                  <h1 className="text-5xl py-12 font-bold" ref={textAnimationContainer}>Seeking <span className="text">{energy}</span></h1>
+               <div className="relative z-10 flex-grow text-center overflow-hidden">
+                  <h1 className="text-5xl font-bold pb-2">Seeking{ ' ' }
+                     <span className="text inline-block">
+                        <div className="flex flex-col" ref={headingAnimationContainer}>{animatedHeadings}</div>
+                     </span>
+                  </h1>
+                  <h2 className="my-1 text-xl">Amidst Chaos</h2>
                </div>
             </div>
          </Container>
