@@ -43,7 +43,7 @@ export default function App() {
   	return (
 	<>
 		<Header />
-		<main id="main" className="min-h-screen pt-36 md:pt-44">
+		<main id="main" className="min-h-screen pt-36 md:pt-40">
 			<AnimatePresence>
 			  	<motion.div
 			  		key={location.pathname}

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Nav from "./Nav";
-import logo from "../../kp-logo.png";
+import logo from "../../images/kp-logo.png";
 
 export default function Header(props: any) {
    return (

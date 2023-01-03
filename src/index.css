@@ -219,7 +219,6 @@
 }
 
 /* loader */
-
 #preload .pixel{
   background: var(--clr-1);
   opacity: 0;
@@ -445,4 +444,10 @@
   #preload .pixel:nth-child(72){
     transition-delay: 1.6s;
   }
+}
+/* home page */
+.gradient-heading{
+  background: linear-gradient( 182deg,#151515,#606060,#8b8b8b,#aeaeae,#b9b9b9,#c8c8c8 );
+  -webkit-background-clip: text;
+  background-clip: text;
 }
