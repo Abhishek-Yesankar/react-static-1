@@ -10,7 +10,7 @@ for( let i = 0; i < 16; i++ ) {
 }
 
 export default function Nav( props: any ) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState( false );
   const trailer = useRef<RefObject<HTMLButtonElement> | any>();
 
   	const toggleMenu = ( e: MouseEvent ) => {
@@ -19,6 +19,7 @@ export default function Nav( props: any ) {
 				trailer.current.style.visibility = 'hidden';
       		trailer.current.classList.remove( 'active' );
 	   	}
+			state ? document.body.style.overflow = '' : document.body.style.overflow = 'hidden';
 	  		return !state;
 		});
    }
