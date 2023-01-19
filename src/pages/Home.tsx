@@ -9,8 +9,14 @@ import img3 from '../images/rebc.jpg';
 import img3Pix from '../images/rebc-pixelated.jpg';
 import img4 from '../images/bullmonk.jpg';
 import img4Pix from '../images/bullmonk-pixelated.jpg';
+import img5 from '../images/pexels-tobias-bjørkli-2113566.jpg';
+import img6 from '../images/pexels-sam-kolder-2387873.jpg';
+import homeLast from '../images/home-last.jpg';
 import Container from '../components/Container';
+import { ScrollTrigger } from 'gsap/all';
 import { gsap } from 'gsap';
+
+gsap.registerPlugin( ScrollTrigger );
 
 /** Hero Section Pixels */
 const heroPixelRow = 7;
@@ -30,8 +36,8 @@ const headings = [
 
 for( let i = 0; i < headings.length; i++ ) {
    animatedHeadings.push(
-      <span key={i} style={{ position: `${( i !== 0 ) ? 'absolute': 'static'}`}} className="inline-block animate-container" aria-label={headings[i]}>
-         { headings[i].split('').map( ( text, k ) => <span className="inline-block" aria-hidden="true" key={k}>{text}</span> ) }
+      <span key={i} style={{ position: `${( i !== 0 ) ? 'absolute': 'static'}`}} className="inline-block animate-container font-Coconat" aria-label={headings[i]}>
+         { headings[i].split('').map( ( text, k ) => <span className="inline-block font-Coconat" aria-hidden="true" key={k}>{text}</span> ) }
       </span> );
 }
 
@@ -54,13 +60,13 @@ export default function Home()  {
    const pixelContainer = useRef<any>();
    const headingAnimationContainer = useRef<any>();
    const section2Ref = useRef<any>();
+   const section5Ref = useRef<any>();
 
    const distanceOfAnotherImgToRender = 120;
    let hoverImages: null | NodeListOf<HTMLElement> = null;
    let currentImageIndex = 0;
    let prevX: undefined | number = undefined;
    let prevY: undefined | number = undefined;
-
 
    function imagesHoverEffect( e: React.MouseEvent ): void  {
       const rect = e.currentTarget.getBoundingClientRect();
@@ -113,13 +119,22 @@ export default function Home()  {
          const delay = 5;
 
          txt.forEach( ( item: HTMLElement ) => {
-            gsapTimeline.fromTo( item.querySelectorAll( 'span' ), { y: '-100%', opacity: 0, }, { y: 0, opacity: 1, stagger: .1, duration: .6, repeat: 1, yoyo: true, delay: -.6, repeatDelay: ( delay / 2 ) - .6, ease: "circ.out" });
+            gsapTimeline.fromTo( item.querySelectorAll( 'span' ), { y: '-100%', opacity: 0, scrollTrigger: {
+               trigger: section5Ref.current,
+               toggleActions: "resume resume resume pause"
+            }}, 
+            { y: 0, opacity: 1, stagger: .1, duration: .6, repeat: 1, yoyo: true, delay: -.6, repeatDelay: ( delay / 2 ) - .6, ease: "circ.out" });
          });
 
          const pixels = pixelContainer.current?.querySelectorAll( '.pixel' ) as NodeListOf<HTMLElement>;
          if( pixels ) {
             pixels.forEach( ( item, i ) => {
-               gsap.fromTo( item, { opacity: .2, }, { opacity: .5, repeat: -1, delay: gsap.utils.random( 1, i ), yoyo: true, duration: 1.7 } );
+               gsap.fromTo( item, { opacity: .2, 
+                  scrollTrigger: {
+                  trigger: section5Ref.current,
+                  toggleActions: "resume resume resume pause"
+               }}, 
+               { opacity: .5, repeat: -1, delay: gsap.utils.random( 1, i ), yoyo: true, duration: 1.7 } );
             });
          }
 
@@ -135,7 +150,16 @@ export default function Home()  {
             }
          }
 
-      }, [headingAnimationContainer, pixelContainer] );
+         gsap.from( section5Ref.current, {
+            scrollTrigger: {
+               trigger: section5Ref.current,
+               scrub: .5,
+               toggleActions: "resume resume resume pause"
+            },
+            backgroundPositionY: 120,
+         });
+
+      }, [headingAnimationContainer, pixelContainer, section5Ref] );
 
       return () => {
          gsapCtx.revert();
@@ -153,12 +177,12 @@ export default function Home()  {
                { pixel }
                </div>
                <div className="relative z-10 flex-grow text-center overflow-hidden">
-                  <h1 className="text-3xl md:text-5xl font-bold pb-2">Seeking{ ' ' }
-                     <span className="text inline-block">
+                  <h1 className="text-3xl md:text-6xl font-bold pb-2 font-Coconat">Seeking{ ' ' }
+                     <span className="text inline-block font-Coconat">
                         <div className="flex flex-col" ref={headingAnimationContainer}>{animatedHeadings}</div>
                      </span>
                   </h1>
-                  <h2 className="my-1 text-xl">Amidst Chaos</h2>
+                  <h2 className="my-1 text-xl font-Coconat">Amidst Chaos</h2>
                </div>
             </div>
             <div className="py-6">
@@ -178,8 +202,8 @@ export default function Home()  {
       <section ref={section2Ref}>
          <Container className="flex flex-wrap items-center text-gray-300">
             <div className="md:w-3/5 max-w-3xl">
-               <h2 className="text-xs tracking-[.2em] text-zinc-400">INTRODUCTION</h2>
-               <h1 className="gradient-heading text-4xl leading-[1.25] font-bold mt-2 text-transparent">
+               <h2 className="text-xs tracking-[.2em] text-zinc-400 font-Coconat">INTRODUCTION</h2>
+               <h1 className="gradient-heading text-4xl leading-[1.25] font-bold mt-2 text-transparent font-Coconat">
                   We're a full service creative collective
                   that embraces chaos, blurring the lines
                   between Design & Code to create
@@ -241,7 +265,7 @@ export default function Home()  {
             <div className="md:w-10/12 relative img-pixelated-con">
                <img className="w-full" src={img1} alt=""/>
                <img className="absolute inset-0 pixelated z-10 opacity-0 w-full h-full transition-opacity duration-700" src={img1Pix} alt="" />
-               <h2 className="absolute -translate-y-2/4 left-0 right-0 top-2/4 pixelated z-20 opacity-0 transition-opacity duration-700 text-3xl md:text-8xl text-center font-bold">
+               <h2 className="absolute -translate-y-2/4 left-0 right-0 top-2/4 pixelated z-20 opacity-0 transition-opacity duration-700 text-3xl md:text-8xl text-center font-bold font-Coconat">
                   Changing Perspectives</h2>
             </div>
             <div className="mt-12 md:mt-32 flex flex-wrap md:flex-nowrap md:gap-24">
@@ -249,7 +273,7 @@ export default function Home()  {
                   <div className="relative img-pixelated-con">
                      <img className="w-full" src={img2} alt=""/>
                      <img className="absolute inset-0 pixelated z-10 opacity-0 w-full h-full transition-opacity duration-700" src={img2Pix} alt="" />
-                     <h2 className="absolute -translate-y-2/4 left-0 right-0 top-2/4 pixelated z-20 opacity-0 transition-opacity duration-700 text-3xl md:text-8xl text-center font-bold">
+                     <h2 className="absolute -translate-y-2/4 left-0 right-0 top-2/4 pixelated z-20 opacity-0 transition-opacity duration-700 text-3xl md:text-8xl text-center font-bold font-Coconat">
                         Name</h2>
                   </div>
                </div>
@@ -257,13 +281,13 @@ export default function Home()  {
                   <div className="relative img-pixelated-con">
                         <img className="w-full" src={img3} alt=""/>
                         <img className="absolute inset-0 pixelated z-10 opacity-0 w-full h-full transition-opacity duration-700" src={img3Pix} alt="" />
-                        <h2 className="absolute -translate-y-2/4 left-0 right-0 top-2/4 pixelated z-20 opacity-0 transition-opacity duration-700 text-3xl md:text-8xl text-center font-bold">
+                        <h2 className="absolute -translate-y-2/4 left-0 right-0 top-2/4 pixelated z-20 opacity-0 transition-opacity duration-700 text-3xl md:text-8xl text-center font-bold font-Coconat">
                            Rebc</h2>
                   </div>
                   <div className="relative img-pixelated-con mt-12 md:mt-24">
                         <img className="w-full" src={img4} alt=""/>
                         <img className="absolute inset-0 pixelated z-10 opacity-0 w-full h-full transition-opacity duration-700" src={img4Pix} alt="" />
-                        <h2 className="absolute -translate-y-2/4 left-0 right-0 top-2/4 pixelated z-20 opacity-0 transition-opacity duration-700 text-3xl md:text-8xl text-center font-bold">
+                        <h2 className="absolute -translate-y-2/4 left-0 right-0 top-2/4 pixelated z-20 opacity-0 transition-opacity duration-700 text-3xl md:text-8xl text-center font-bold font-Coconat">
                            Bullmonk</h2>
                   </div>
                </div>
@@ -272,19 +296,34 @@ export default function Home()  {
       </section>
 
       {/* Section 4 */}
-      <section id="home-section-4" className="relative flex">
+      <section id="home-section-4" className="relative flex min-h-screen">
          <div id="hover-container" className="absolute inset-0 overflow-hidden" onMouseMove={imagesHoverEffect}>
             <img className="w-full absolute opacity-0 object-cover" src={img1} alt="" />
             <img className="w-full absolute opacity-0 object-cover" src={img2} alt="" />
             <img className="w-full absolute opacity-0 object-cover" src={img3} alt="" />
             <img className="w-full absolute opacity-0 object-cover" src={img4} alt="" />
+            <img className="w-full absolute opacity-0 object-cover" src={img5} alt="" />
+            <img className="w-full absolute opacity-0 object-cover" src={img6} alt="" />
          </div>
          <Container className="flex flex-col justify-center text-center">
-            <h2 className="text-3xl md:text-5xl font-bold">Discover The Work</h2>
+            <h2 className="text-3xl md:text-5xl font-bold font-Coconat">Discover The Work</h2>
             <p className="mt-6 text-md font-light sm:w-1/2 mx-auto">we take a thoughtful considered approach to
                create designs with real depth and relevance
                that stand the test of time.
             </p>
+         </Container>
+      </section>
+      {/* Section 5 */}
+      <section id="home-section-5" ref={section5Ref} className="min-h-screen" style={{background: `url('${homeLast}')`}}>
+         <Container className="md:flex md:py-32">
+            <div className="w-1/2">
+               <p className="font-medium text-sm mb-2 tracking-widest">BLOG</p>
+               <h3 className="text-3xl md:text-5xl font-semibold font-Coconat">When Ideas Meet Reality</h3>
+            </div>
+         </Container>
+      </section>
+      <section id="home-section-5" className="min-h-screen">
+         <Container>
          </Container>
       </section>
       </>

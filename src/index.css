@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Coconat";
+  src: url("./fonts/Coconat-Regular.woff2") format("woff2"),
+       url("./fonts/Coconat-Regular.woff") format("woff");
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -461,13 +466,10 @@
 }
 
 /* home section 4 */
-#home-section-4{
-  min-height: 600px;
-}
 #home-section-4 #hover-container img{
   width: 350px;
   height: 200px;
-  transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
+  transition: transform 700ms ease-in-out, opacity 700ms ease-in-out;
   position: absolute;
   transform: translateX(-50%) translateY(-45%) rotate(-5deg) scale(.2);
   z-index: -1;
@@ -476,4 +478,9 @@
   transform: translateX(-50%) translateY(-50%) rotate(-5deg) scale(1);
   transition-duration: 200ms, 20ms;
   opacity: 1;
+}
+
+/* home section 5 */
+#home-section-5{
+  background-size: cover!important;
 }
